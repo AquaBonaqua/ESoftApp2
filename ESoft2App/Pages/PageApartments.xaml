@@ -1,0 +1,34 @@
+﻿<Page x:Class="ESoft2App.Pages.PageApartments"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ESoft2App.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="625" d:DesignWidth="1400"
+      Title="Квартиры">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="15*"/>
+            <RowDefinition Height="5*"/>
+        </Grid.RowDefinitions>
+
+        <DataGrid  AutoGenerateColumns="False"  CanUserAddRows="False" CanUserDeleteRows="False" ColumnWidth="*"  Name="ApartmentsGrid">
+            <DataGrid.Columns>
+                <DataGridTextColumn TextOptions.TextFormattingMode="Ideal" Header="ЖК" Binding="{Binding House.Complex.Name}"/>
+                <DataGridTextColumn Header="Адрес"  Binding="{Binding Adress}"/>
+                <DataGridTextColumn Header="Площадь" Binding="{Binding Surface}"/>
+                <DataGridTextColumn Header="Количество комнат" Binding="{Binding RoomsCount}"/>
+                <DataGridTextColumn Header="Подъезд" Binding="{Binding Entrance}"/>
+                <DataGridTextColumn Header="Этаж" Binding="{Binding Floor}"/>
+                <DataGridTextColumn Header="Статус" Binding="{Binding SellStatus.Name}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+    
+            <Button Width="140" Name="BtnBack" Content="Назад" Click="BtnBack_Click"/>
+        </StackPanel>
+    </Grid>
+</Page>

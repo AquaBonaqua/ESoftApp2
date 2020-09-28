@@ -1,0 +1,30 @@
+﻿<Controls:MetroWindow  x:Class="ESoft2App.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+      BorderThickness="0" 
+                      GlowBrush="Black"
+                      ResizeMode="CanResizeWithGrip"
+
+                      WindowTransitionsEnabled="False"
+                      WindowStartupLocation="CenterScreen"
+        Title="ESoft" Height="750" Width="1400">
+    <Grid>
+        <Grid.RowDefinitions>
+
+            <RowDefinition Height="94*"/>
+            <RowDefinition Height="625*"/>
+
+        </Grid.RowDefinitions>
+        <StackPanel  Background="#FF78909C" >
+
+            <Label  HorizontalAlignment="Center"  Margin="0 30 0 0" Content="{Binding ElementName=MainFrame, Path=Content.Title}"></Label>
+        </StackPanel>
+        <StackPanel HorizontalAlignment="Left" Orientation="Horizontal" Width="252"  >
+            <Image Margin="10" HorizontalAlignment="Left"  Source="Resources/logo.png"></Image>
+        </StackPanel>
+
+        <Frame Background="#FF78909C" NavigationUIVisibility="Hidden" Name="MainFrame" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="1"/>
+
+    </Grid>
+</Controls:MetroWindow>

@@ -1,0 +1,50 @@
+﻿<Page x:Class="ESoft2App.Pages.PageComplexes"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ESoft2App.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="625" d:DesignWidth="1400"
+      Title="Список ЖК">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="15*"/>
+            <RowDefinition Height="5*"/>
+        </Grid.RowDefinitions>
+
+        <DataGrid  AutoGenerateColumns="False"  CanUserAddRows="False" CanUserDeleteRows="False" ColumnWidth="*"  Name="ComplexesGrid">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Название" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="Статус" Width="80" Binding="{Binding ConstructionStatus.Name}"/>
+                <DataGridTextColumn Header="Количество домов" Binding="{Binding HousesCount}"/>
+                <DataGridTextColumn Header="Город" Binding="{Binding City.Name}"/>
+                <DataGridTemplateColumn  Visibility="Visible">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Name="DeleteComplex" Click="DeleteComplex_Click" >Удалить</Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn  Visibility="Visible">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Name="EditComplex" Click="EditComplex_Click" >Редактировать</Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <StackPanel Name="StackStatus" Margin="0 0 32 0" Orientation="Horizontal">
+                <TextBlock VerticalAlignment="Center">Город:</TextBlock>
+                <ComboBox Margin="16 0 0 0" Name="CmbCity"  Height="22" Width="180" SelectionChanged="CmbStatus_SelectionChanged"></ComboBox>
+            </StackPanel>
+            
+            <Button  Name="AddComplex" Width="140" Margin="0 0 16 0" Content="Добавить ЖК" Click="AddComplex_Click"/>
+            <Button Width="140" Content="Назад" Click="Button_Click" />
+        </StackPanel>
+    </Grid>
+</Page>

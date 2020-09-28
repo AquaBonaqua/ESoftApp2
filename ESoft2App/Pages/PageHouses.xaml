@@ -1,0 +1,56 @@
+﻿<Page x:Class="ESoft2App.Pages.PageHouses"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ESoft2App.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="625" d:DesignWidth="1400"
+      Title="Список домов">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="15*"/>
+            <RowDefinition Height="5*"/>
+        </Grid.RowDefinitions>
+
+        <DataGrid  AutoGenerateColumns="False"  CanUserAddRows="False" CanUserDeleteRows="False" ColumnWidth="*"  Name="ComplexesGrid">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ЖК" Width="130" Binding="{Binding Complex.Name}"/>
+                <DataGridTextColumn Header="Улица" Width="120" Binding="{Binding Street}"/>
+                <DataGridTextColumn Header="Номер дома" Width="90" Binding="{Binding Number}"/>
+                <DataGridTextColumn Header="Статус строительства ЖК" Width="170" Binding="{Binding Complex.ConstructionStatus.Name}"/>
+                <DataGridTextColumn Header="Количество проданных квартир" Binding="{Binding SoldApartments}"/>
+                <DataGridTextColumn Header="Количество продающихся квартир" Width="240" Binding="{Binding ReadyApartments}"/>
+                <DataGridTemplateColumn  >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Name="DeleteHouse" Click="DeleteHouse_Click">Удалить</Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn  >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Name="EditHouse" Click="EditHouse_Click">Редактировать</Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <StackPanel Name="StackComplex" Margin="0 0 32 0" Orientation="Horizontal">
+                <TextBlock VerticalAlignment="Center">ЖК:</TextBlock>
+                <ComboBox Margin="16 0 0 0" Name="CmbComplex"  Height="22" Width="180" ></ComboBox>
+            </StackPanel>
+            <StackPanel Name="StackStreet" Margin="0 0 32 0" Orientation="Horizontal">
+                <TextBlock VerticalAlignment="Center">Адрес:</TextBlock>
+                <TextBox Margin="16 0 0 0" Name="Street"  Height="22" Width="180" ></TextBox>
+            </StackPanel>
+
+            <Button Width="140" Name="BtnAdd" Margin="0 0 16 0" Content="Добавить дом" Click="BtnAdd_Click"/>
+            <Button Width="140" Name="BtnBack" Content="Назад" Click="BtnBack_Click"    />
+        </StackPanel>
+    </Grid>
+</Page>

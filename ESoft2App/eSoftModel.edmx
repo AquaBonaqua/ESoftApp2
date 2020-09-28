@@ -1,0 +1,415 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище eSoft2Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Apartment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Number" Type="int" Nullable="false" />
+          <Property Name="Surface" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="RoomsCount" Type="int" Nullable="false" />
+          <Property Name="Entrance" Type="int" Nullable="false" />
+          <Property Name="Floor" Type="int" Nullable="false" />
+          <Property Name="SellStatusId" Type="int" Nullable="false" />
+          <Property Name="PlusFinishCost" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="BuildingCost" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="HouseId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Complex">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ConstructionStatusId" Type="int" Nullable="false" />
+          <Property Name="PlusCost" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="BuildingCost" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="CityId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ConstructionStatus">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="House">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Street" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Number" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="BuildingCost" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="PlusCost" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="ComplexId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SellStatus">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Apartment_House">
+          <End Role="House" Type="Self.House" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Apartment" Type="Self.Apartment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="House">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Apartment">
+              <PropertyRef Name="HouseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Apartment_SellStatus">
+          <End Role="SellStatus" Type="Self.SellStatus" Multiplicity="1" />
+          <End Role="Apartment" Type="Self.Apartment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SellStatus">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Apartment">
+              <PropertyRef Name="SellStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Complex_City">
+          <End Role="City" Type="Self.City" Multiplicity="1" />
+          <End Role="Complex" Type="Self.Complex" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Complex">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Complex_ConstructionStatus">
+          <End Role="ConstructionStatus" Type="Self.ConstructionStatus" Multiplicity="1" />
+          <End Role="Complex" Type="Self.Complex" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ConstructionStatus">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Complex">
+              <PropertyRef Name="ConstructionStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_House_Complex">
+          <End Role="Complex" Type="Self.Complex" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="House" Type="Self.House" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Complex">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="House">
+              <PropertyRef Name="ComplexId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище eSoft2ModelContainer">
+          <EntitySet Name="Apartment" EntityType="Self.Apartment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="City" EntityType="Self.City" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Complex" EntityType="Self.Complex" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ConstructionStatus" EntityType="Self.ConstructionStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="House" EntityType="Self.House" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SellStatus" EntityType="Self.SellStatus" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Apartment_House" Association="Self.FK_Apartment_House">
+            <End Role="House" EntitySet="House" />
+            <End Role="Apartment" EntitySet="Apartment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Apartment_SellStatus" Association="Self.FK_Apartment_SellStatus">
+            <End Role="SellStatus" EntitySet="SellStatus" />
+            <End Role="Apartment" EntitySet="Apartment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Complex_City" Association="Self.FK_Complex_City">
+            <End Role="City" EntitySet="City" />
+            <End Role="Complex" EntitySet="Complex" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Complex_ConstructionStatus" Association="Self.FK_Complex_ConstructionStatus">
+            <End Role="ConstructionStatus" EntitySet="ConstructionStatus" />
+            <End Role="Complex" EntitySet="Complex" />
+          </AssociationSet>
+          <AssociationSet Name="FK_House_Complex" Association="Self.FK_House_Complex">
+            <End Role="Complex" EntitySet="Complex" />
+            <End Role="House" EntitySet="House" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="eSoft2Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="eSoft2Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Apartment" EntityType="eSoft2Model.Apartment" />
+          <EntitySet Name="City" EntityType="eSoft2Model.City" />
+          <EntitySet Name="Complex" EntityType="eSoft2Model.Complex" />
+          <EntitySet Name="ConstructionStatus" EntityType="eSoft2Model.ConstructionStatus" />
+          <EntitySet Name="House" EntityType="eSoft2Model.House" />
+          <EntitySet Name="SellStatus" EntityType="eSoft2Model.SellStatus" />
+          <AssociationSet Name="FK_Apartment_House" Association="eSoft2Model.FK_Apartment_House">
+            <End Role="House" EntitySet="House" />
+            <End Role="Apartment" EntitySet="Apartment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Apartment_SellStatus" Association="eSoft2Model.FK_Apartment_SellStatus">
+            <End Role="SellStatus" EntitySet="SellStatus" />
+            <End Role="Apartment" EntitySet="Apartment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Complex_City" Association="eSoft2Model.FK_Complex_City">
+            <End Role="City" EntitySet="City" />
+            <End Role="Complex" EntitySet="Complex" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Complex_ConstructionStatus" Association="eSoft2Model.FK_Complex_ConstructionStatus">
+            <End Role="ConstructionStatus" EntitySet="ConstructionStatus" />
+            <End Role="Complex" EntitySet="Complex" />
+          </AssociationSet>
+          <AssociationSet Name="FK_House_Complex" Association="eSoft2Model.FK_House_Complex">
+            <End Role="Complex" EntitySet="Complex" />
+            <End Role="House" EntitySet="House" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Apartment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Number" Type="Int32" Nullable="false" />
+          <Property Name="Surface" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="RoomsCount" Type="Int32" Nullable="false" />
+          <Property Name="Entrance" Type="Int32" Nullable="false" />
+          <Property Name="Floor" Type="Int32" Nullable="false" />
+          <Property Name="SellStatusId" Type="Int32" Nullable="false" />
+          <Property Name="PlusFinishCost" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="BuildingCost" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="HouseId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="House" Relationship="eSoft2Model.FK_Apartment_House" FromRole="Apartment" ToRole="House" />
+          <NavigationProperty Name="SellStatus" Relationship="eSoft2Model.FK_Apartment_SellStatus" FromRole="Apartment" ToRole="SellStatus" />
+        </EntityType>
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Complex" Relationship="eSoft2Model.FK_Complex_City" FromRole="City" ToRole="Complex" />
+        </EntityType>
+        <EntityType Name="Complex">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ConstructionStatusId" Type="Int32" Nullable="false" />
+          <Property Name="PlusCost" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="BuildingCost" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="CityId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="City" Relationship="eSoft2Model.FK_Complex_City" FromRole="Complex" ToRole="City" />
+          <NavigationProperty Name="ConstructionStatus" Relationship="eSoft2Model.FK_Complex_ConstructionStatus" FromRole="Complex" ToRole="ConstructionStatus" />
+          <NavigationProperty Name="House" Relationship="eSoft2Model.FK_House_Complex" FromRole="Complex" ToRole="House" />
+        </EntityType>
+        <EntityType Name="ConstructionStatus">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Complex" Relationship="eSoft2Model.FK_Complex_ConstructionStatus" FromRole="ConstructionStatus" ToRole="Complex" />
+        </EntityType>
+        <EntityType Name="House">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Street" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Number" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BuildingCost" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="PlusCost" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="ComplexId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Apartment" Relationship="eSoft2Model.FK_Apartment_House" FromRole="House" ToRole="Apartment" />
+          <NavigationProperty Name="Complex" Relationship="eSoft2Model.FK_House_Complex" FromRole="House" ToRole="Complex" />
+        </EntityType>
+        <EntityType Name="SellStatus">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Apartment" Relationship="eSoft2Model.FK_Apartment_SellStatus" FromRole="SellStatus" ToRole="Apartment" />
+        </EntityType>
+        <Association Name="FK_Apartment_House">
+          <End Type="eSoft2Model.House" Role="House" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="eSoft2Model.Apartment" Role="Apartment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="House">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Apartment">
+              <PropertyRef Name="HouseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Apartment_SellStatus">
+          <End Type="eSoft2Model.SellStatus" Role="SellStatus" Multiplicity="1" />
+          <End Type="eSoft2Model.Apartment" Role="Apartment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SellStatus">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Apartment">
+              <PropertyRef Name="SellStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Complex_City">
+          <End Type="eSoft2Model.City" Role="City" Multiplicity="1" />
+          <End Type="eSoft2Model.Complex" Role="Complex" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Complex">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Complex_ConstructionStatus">
+          <End Type="eSoft2Model.ConstructionStatus" Role="ConstructionStatus" Multiplicity="1" />
+          <End Type="eSoft2Model.Complex" Role="Complex" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ConstructionStatus">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Complex">
+              <PropertyRef Name="ConstructionStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_House_Complex">
+          <End Type="eSoft2Model.Complex" Role="Complex" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="eSoft2Model.House" Role="House" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Complex">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="House">
+              <PropertyRef Name="ComplexId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище eSoft2ModelContainer" CdmEntityContainer="eSoft2Entities">
+          <EntitySetMapping Name="Apartment">
+            <EntityTypeMapping TypeName="eSoft2Model.Apartment">
+              <MappingFragment StoreEntitySet="Apartment">
+                <ScalarProperty Name="HouseId" ColumnName="HouseId" />
+                <ScalarProperty Name="BuildingCost" ColumnName="BuildingCost" />
+                <ScalarProperty Name="PlusFinishCost" ColumnName="PlusFinishCost" />
+                <ScalarProperty Name="SellStatusId" ColumnName="SellStatusId" />
+                <ScalarProperty Name="Floor" ColumnName="Floor" />
+                <ScalarProperty Name="Entrance" ColumnName="Entrance" />
+                <ScalarProperty Name="RoomsCount" ColumnName="RoomsCount" />
+                <ScalarProperty Name="Surface" ColumnName="Surface" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="City">
+            <EntityTypeMapping TypeName="eSoft2Model.City">
+              <MappingFragment StoreEntitySet="City">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Complex">
+            <EntityTypeMapping TypeName="eSoft2Model.Complex">
+              <MappingFragment StoreEntitySet="Complex">
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
+                <ScalarProperty Name="BuildingCost" ColumnName="BuildingCost" />
+                <ScalarProperty Name="PlusCost" ColumnName="PlusCost" />
+                <ScalarProperty Name="ConstructionStatusId" ColumnName="ConstructionStatusId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ConstructionStatus">
+            <EntityTypeMapping TypeName="eSoft2Model.ConstructionStatus">
+              <MappingFragment StoreEntitySet="ConstructionStatus">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="House">
+            <EntityTypeMapping TypeName="eSoft2Model.House">
+              <MappingFragment StoreEntitySet="House">
+                <ScalarProperty Name="ComplexId" ColumnName="ComplexId" />
+                <ScalarProperty Name="PlusCost" ColumnName="PlusCost" />
+                <ScalarProperty Name="BuildingCost" ColumnName="BuildingCost" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SellStatus">
+            <EntityTypeMapping TypeName="eSoft2Model.SellStatus">
+              <MappingFragment StoreEntitySet="SellStatus">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

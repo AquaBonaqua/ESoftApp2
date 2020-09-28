@@ -1,0 +1,20 @@
+﻿<Page x:Class="ESoft2App.Pages.PageMain"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      mc:Ignorable="d" 
+      d:DesignHeight="625" d:DesignWidth="1400"
+      Title="Главная страница">
+
+    <Grid>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical">
+
+
+            <Button Content="Список жилищных комплексов" Click="Button_Click_1" />
+            <Button Margin="0 16 0 16" Content="Список домов" Click="Button_Click_2" />
+            <Button Margin="0 0 0 16" Content="Список квартир" Click="Button_Click_3" />
+            <Button Content="Выход" Width="240" Click="Button_Click" />
+        </StackPanel>
+    </Grid>
+</Page>
